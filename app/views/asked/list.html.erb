@@ -1,0 +1,52 @@
+<div class="container" id="main">
+<h2 class="title">기록된 익명질문</h2>
+
+<button class="col-xs-6 col-sm-4" id="toggle_replies">질문들만 모아보기</button>
+<button class="col-xs-6 col-sm-4" id="toggle_theme">테마색깔을 전환</button>
+<button class="col-xs-6 col-sm-4" id="toggle_contact">만든이 연락하기</button>
+<div id="contact" class="alert alert-success" role="alert">
+    <h4>만든이 : 노수지</h4>
+    <h4>thensj@likelion.org</h4>
+    <h4>010-6263-687*</h4>
+</div>
+<% @every_post.each do |p| %>
+
+    <div class="well">
+        <h3>질문<%=p.id%><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></h3>
+        <%= p.content %><br>
+        <div id="replies">
+        <form action="/reply_write" method="POST">
+            <input type="hidden" name="id_post" value="<%=p.id%>"></input>
+            <h4>댓글남기기</h4>
+            <p><textarea name="content" class="form-control" rows="3" cols="120"></textarea></p>
+            <p><button style="color: red;" type="submit" class="btn btn-default">익명의 댓글 남기기</button></p>
+        </form>
+        <div class="well">
+            <% p.replies.each do |r| %>
+                <%=r.content%>
+            <a href="/reply/update/<%=r.id%>">[수정]</a>
+            <a href="/reply/destroy/<%=r.id%>">[삭제]</a>
+            <br>
+            <%end%>
+        </div>
+        </div>
+        <a href="/update/<%=p.id%>">[수정]</a>
+        <a href="/destroy/<%=p.id%>">[삭제]</a>
+    <hr>
+    </div>
+<%end%>
+
+<h2 class="link"><a href="/">질문하러 가기</a></h2>
+</div>
+<script>
+    $( "#toggle_replies" ).click(function() {
+      $( "#replies * " ).fadeToggle( "fast", "linear" );
+    });
+    $( "#toggle_contact" ).click(function() {
+      $( "#contact" ).toggle( "show" );
+    });
+    
+    $( "#toggle_theme" ).click(function() {
+      $( "#main" ).toggleClass( "theme_green" );
+    });
+</script>

@@ -1,0 +1,20 @@
+// Place all the styles related to the asked controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.title {
+    color: green;
+    text-align: center;
+}
+
+.theme_green {
+    background-color: green;
+    .title, .link {
+        color : white;
+    }
+    color: green;
+}
+
+#contact {
+    display: none;
+}
